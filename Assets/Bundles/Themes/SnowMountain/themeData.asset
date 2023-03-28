@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5397c64509ab92a4b9e8309aebcb66e1, type: 3}
+  m_Name: themeData
+  m_EditorClassIdentifier: 
+  themeName: SnowMountain
+  cost: 100
+  premiumCost: 0
+  themeIcon: {fileID: 21300038, guid: e1a536f74c7ef384a8d7132148ace0c8, type: 3}
+  zones:
+  - length: 500
+    prefabList: []
+  collectiblePrefab: {fileID: 184264, guid: 16cac8b68c4ca6448baecd0680e025f6, type: 3}
+  premiumCollectible: {fileID: 1000010457517272, guid: ac3c86c2382618643bfda6ab3cc81a0b,
+    type: 3}
+  cloudPrefabs:
+  - {fileID: 1000012225143368, guid: 1225524528f67794ead226c3401f6bd6, type: 3}
+  - {fileID: 1000012941456988, guid: a0ea39d2a87ecda48bb676fd38b92c04, type: 3}
+  - {fileID: 1000013540275922, guid: 17e653cfe45bc1a4f9938e1dc131a85f, type: 3}
+  cloudMinimumDistance: {x: 0, y: 20, z: 15}
+  cloudSpread: {x: 5, y: 0, z: 1}
+  cloudNumber: 10
+  skyMesh: {fileID: 4300002, guid: 0fd40b0b70fef064c9b7e20779b1f8ec, type: 3}
+  UIGroundMesh: {fileID: 4300000, guid: 28288b28edded764b843730ced06fb8c, type: 3}
+  fogColor: {r: 0.5754717, g: 0.5754717, b: 0.5754717, a: 0}
