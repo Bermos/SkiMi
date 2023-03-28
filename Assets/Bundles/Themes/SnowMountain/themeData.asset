@@ -18,7 +18,11 @@ MonoBehaviour:
   themeIcon: {fileID: 21300038, guid: e1a536f74c7ef384a8d7132148ace0c8, type: 3}
   zones:
   - length: 500
-    prefabList: []
+    prefabList:
+    - m_AssetGUID: dcbeb2ef97131d241b111f35d4788477
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
   collectiblePrefab: {fileID: 184264, guid: 16cac8b68c4ca6448baecd0680e025f6, type: 3}
   premiumCollectible: {fileID: 1000010457517272, guid: ac3c86c2382618643bfda6ab3cc81a0b,
     type: 3}

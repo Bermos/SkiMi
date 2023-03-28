@@ -221,8 +221,8 @@ Transform:
   m_GameObject: {fileID: 114266}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 467630}
   - {fileID: 401514}
@@ -240,7 +240,7 @@ Animator:
   m_GameObject: {fileID: 114266}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 7c5ffcb0472492c439fb3c569a468d6f, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b468e53677ceeeb49bcda5deb95250aa, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -267,11 +267,11 @@ MonoBehaviour:
   cost: 10
   premiumCost: 0
   accessories: []
-  animator: {fileID: 0}
-  icon: {fileID: 0}
-  jumpSound: {fileID: 0}
-  hitSound: {fileID: 0}
-  deathSound: {fileID: 0}
+  animator: {fileID: 9555380}
+  icon: {fileID: 21300000, guid: c8a69ecdf54ac8e4b873466605de27ff, type: 3}
+  jumpSound: {fileID: 8300000, guid: 819da6b208e0c0342b38dbbba363b740, type: 3}
+  hitSound: {fileID: 8300000, guid: a9ca43e15a6013b43af5e7c96fe909f5, type: 3}
+  deathSound: {fileID: 8300000, guid: 603f051bdda9f2e4e85ca5ebcececfdf, type: 3}
 --- !u!1 &122230
 GameObject:
   m_ObjectHideFlags: 0

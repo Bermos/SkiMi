@@ -55,10 +55,6 @@ MonoBehaviour:
     m_Address: Assets/Prefabs/UI/Score.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: ad8e5e8cb63a0594bb159c27e126abe9
-    m_Address: Assets/Bundles/Themes/SnowMountain/themeData.asset
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   - m_GUID: 0aff18421e0bb2744942ca62f9b618b4
     m_Address: Assets/Bundles/Themes/SnowMountain/Obstacles/barrier_1.prefab
     m_ReadOnly: 0
@@ -71,6 +67,11 @@ MonoBehaviour:
     m_Address: Assets/Bundles/Themes/SnowMountain/Obstacles/barrier_3.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 81159e801b32b924396b0155bde55204
+    m_Address: Skiier
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - characters
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 735e874f947d0e143a6b4e83f8a7283a, type: 2}
   m_SchemaSet:
