@@ -56,15 +56,15 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 0aff18421e0bb2744942ca62f9b618b4
-    m_Address: Assets/Bundles/Themes/SnowMountain/Obstacles/barrier_1.prefab
+    m_Address: ObstacleSnowBarrier01
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 16540e40311607c4d92c6b3de8450d6d
-    m_Address: Assets/Bundles/Themes/SnowMountain/Obstacles/barrier_2.prefab
+    m_Address: ObstacleSnowBarrier02
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 5bafae178ecf7a64799a74c89a4f2e89
-    m_Address: Assets/Bundles/Themes/SnowMountain/Obstacles/barrier_3.prefab
+    m_Address: ObstacleSnowStone01
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 81159e801b32b924396b0155bde55204
@@ -72,6 +72,14 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - characters
+  - m_GUID: 04e70735f4a3e4540b054518a8b7d903
+    m_Address: ObstacleSnowStone02
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: a5e49d3e0cc1caa43be2d44aa4ded9d2
+    m_Address: Assets/Bundles/Themes/SnowMountain/Environment/mountain_1.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 735e874f947d0e143a6b4e83f8a7283a, type: 2}
   m_SchemaSet:
