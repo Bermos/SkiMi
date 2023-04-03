@@ -34,19 +34,7 @@ public class CharacterInputController : MonoBehaviour
 
     public Consumable inventory;
 
-    // Variables to store OpenCV objects
-    private Mat mRgba;
-
-    private CascadeClassifier mCascadeClassifier;
-
-    private OpenCvSharp.Rect mLastBodyRect;
-
-    // Variables to store movement direction
-    private int mMovementDirection = 0; // 0 = no movement, -1 = left, 1 = right
-
-    private float mLastBodyX = 0f;
-
-    WebCamTexture _webCamTexture;
+    private BodyDetector bodyDetector;
 
     public int coins
     {
@@ -211,12 +199,6 @@ public class CharacterInputController : MonoBehaviour
         m_Audio = GetComponent<AudioSource>();
 
         m_ObstacleLayer = 1 << LayerMask.NameToLayer("Obstacle");
-
-        WebCamDevice[] devices = WebCamTexture.devices;
-
-        _webCamTexture = new WebCamTexture(devices[0].name);
-        _webCamTexture.Play();
-        mCascadeClassifier = new CascadeClassifier("haarcascade_upperbody.xml");
     }
 
     // Called at the beginning of a run or rerun
@@ -228,6 +210,11 @@ public class CharacterInputController : MonoBehaviour
         characterCollider.Init();
 
         m_ActiveConsumables.Clear();
+    }
+
+    void Start()
+    {
+        bodyDetector = (BodyDetector)FindObjectOfType(typeof(BodyDetector));
     }
 
     public void End()
@@ -283,60 +270,7 @@ public class CharacterInputController : MonoBehaviour
 
     protected void Update()
     {
-        GetComponent<Renderer>().material.mainTexture = _webCamTexture;
-        Mat frame = OpenCvSharp.Unity.TextureToMat(_webCamTexture);
-
-        // Detect the body in the frame
-        var bodies =
-            mCascadeClassifier
-                .DetectMultiScale(frame, 1.1, 2, HaarDetectionType.ScaleImage);
-
-        // Track the movement of the body
-        if (bodies.Length > 0)
-        {
-            // Get the largest body in the frame
-            OpenCvSharp.Rect bodyRect = new OpenCvSharp.Rect();
-            foreach (OpenCvSharp.Rect body in bodies)
-            {
-                if (
-                    bodyRect == null ||
-                    body.Size.Height * body.Size.Width >
-                    bodyRect.Size.Height * body.Size.Width
-                )
-                {
-                    bodyRect = body;
-                }
-            }
-
-            // Track the movement of the body
-            if (mLastBodyRect != null)
-            {
-                // Detect the direction of the body movement
-                float bodyX = bodyRect.Location.X + (bodyRect.Size.Width / 2);
-                if (bodyX < mLastBodyX)
-                {
-                    mMovementDirection = -1;
-                }
-                else if (bodyX > mLastBodyX)
-                {
-                    mMovementDirection = 1;
-                }
-                else
-                {
-                    mMovementDirection = 0;
-                }
-
-                // TODO: Trigger an event in the game based on the direction of the body movement (e.g. play a different animation or adjust the speed of the game)
-            }
-            Debug.Log (mMovementDirection);
-
-            // Save the current body position and direction for comparison in the next frame
-            mLastBodyRect = bodyRect;
-            mLastBodyX =
-                mLastBodyRect.Location.X + (mLastBodyRect.Size.Width / 2);
-        }
-
-
+        ChangeLane(bodyDetector.mMovementDirection);
 #if UNITY_EDITOR || UNITY_STANDALONE
         // Use key input in editor or standalone
         // disabled if it's tutorial and not thecurrent right tutorial level (see func TutorialMoveCheck)
@@ -567,7 +501,7 @@ public class CharacterInputController : MonoBehaviour
     {
         if (!m_IsRunning) return;
 
-        int targetLane = m_CurrentLane + direction;
+        int targetLane = direction;
 
         if (targetLane < 0 || targetLane > 2)
             // Ignore, we are on the borders.
