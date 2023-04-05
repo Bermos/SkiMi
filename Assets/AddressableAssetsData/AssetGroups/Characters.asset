@@ -80,6 +80,10 @@ MonoBehaviour:
     m_Address: Assets/Bundles/Themes/SnowMountain/Environment/mountain_1.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 7a1b4160766e54d439a880b7bc2df4a3
+    m_Address: Assets/Bundles/Themes/SnowMountain/Environment/mountain_2.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 735e874f947d0e143a6b4e83f8a7283a, type: 2}
   m_SchemaSet:
