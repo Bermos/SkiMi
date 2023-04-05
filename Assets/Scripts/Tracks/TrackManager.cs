@@ -128,11 +128,14 @@ public class TrackManager : MonoBehaviour
     protected const int k_DesiredSegmentCount = 10;
     protected const float k_SegmentRemovalDistance = -30f;
     protected const float k_Acceleration = 0.2f;
-    
+
+    private BodyDetector bodyDetector;
+
     protected void Awake()
     {
         m_ScoreAccum = 0.0f;
         s_Instance = this;
+        bodyDetector = (BodyDetector)FindObjectOfType(typeof(BodyDetector));
     }
 
     public void StartMove(bool isRestart = true)
@@ -404,6 +407,7 @@ public class TrackManager : MonoBehaviour
 
         characterTransform.rotation = currentRot;
         characterTransform.position = currentPos;
+        bodyDetector.transform.position = new Vector3(bodyDetector.transform.position.x, bodyDetector.transform.position.y, currentPos.z);
 
         if (parallaxRoot != null && currentTheme.cloudPrefabs.Length > 0)
         {

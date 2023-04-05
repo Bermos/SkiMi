@@ -30,25 +30,27 @@ public class BodyDetector : MonoBehaviour
             new CascadeClassifier(System
                     .IO
                     .Path
-                    .Combine(Application.dataPath, "haarcascade_upperbody.xml"));
+                    .Combine(Application.dataPath, "haarcascade_frontalface_default.xml"));
     }
 
     // Update is called once per frame
     void Update()
     {
-        GetComponent<Renderer>().material.mainTexture = _webCamTexture;
+        //GetComponent<Renderer>().material.mainTexture = _webCamTexture;
         Mat frame = OpenCvSharp.Unity.TextureToMat(_webCamTexture);
-        findNewFace (frame);
+        findNewBody(frame);
+        display(frame);
     }
 
-    void findNewFace(Mat frame)
+    void findNewBody(Mat frame)
     {
         var bodies = cascade.DetectMultiScale(frame, 1.1, 2, HaarDetectionType.ScaleImage);
         // Track the movement of the body
         if (bodies.Length > 0)
         {
-            // Get the largest body in the frame
             OpenCvSharp.Rect bodyRect = new OpenCvSharp.Rect();
+            // Get the largest body in the frame
+            /*
             foreach (OpenCvSharp.Rect body in bodies)
             {
                 if (
@@ -59,8 +61,8 @@ public class BodyDetector : MonoBehaviour
                 {
                     bodyRect = body;
                 }
-            }
-
+            } */
+            bodyRect = bodies[0];
             // Track the movement of the body
             if (mLastBodyRect != null)
             {
@@ -70,7 +72,7 @@ public class BodyDetector : MonoBehaviour
                 {
                     mMovementDirection = 2;
                 }
-                else if (bodyX >= 160 && bodyX <= 230)
+                else if (bodyX >= 160 && bodyX <= 380)
                 {
                     mMovementDirection = 1;
                 }
@@ -89,5 +91,17 @@ public class BodyDetector : MonoBehaviour
             mLastBodyX =
                 mLastBodyRect.Location.X + (mLastBodyRect.Size.Width / 2);
         }
+    }
+
+    void display(Mat frame)
+    {
+        if (mLastBodyRect != null)
+        {
+            frame.Rectangle(mLastBodyRect, new Scalar(250, 0, 0), 2);
+        }
+
+        Texture newTexture = OpenCvSharp.Unity.MatToTexture(frame);
+        GetComponent<Renderer>().material.mainTexture = newTexture;
+
     }
 }

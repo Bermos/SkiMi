@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: themeData
   m_EditorClassIdentifier: 
   themeName: SnowMountain
-  cost: 100
+  cost: 0
   premiumCost: 0
   themeIcon: {fileID: 21300038, guid: e1a536f74c7ef384a8d7132148ace0c8, type: 3}
   zones:
