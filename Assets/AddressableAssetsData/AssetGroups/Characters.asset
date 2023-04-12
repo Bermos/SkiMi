@@ -76,6 +76,39 @@ MonoBehaviour:
     m_Address: ObstacleSnowStone02
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: a5e49d3e0cc1caa43be2d44aa4ded9d2
+    m_Address: Assets/Bundles/Themes/SnowMountain/Environment/mountain_1.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 7a1b4160766e54d439a880b7bc2df4a3
+    m_Address: Assets/Bundles/Themes/SnowMountain/Environment/mountain_2.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: ad8e5e8cb63a0594bb159c27e126abe9
+    m_Address: Assets/Bundles/Themes/SnowMountain/themeData.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - themeData
+  - m_GUID: 62d3c807a5a98902084162d4fb5effcd
+    m_Address: Assets/Models/SnowMountain/Road02.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 49cb088ea67b07982b9fa511e626a1cb
+    m_Address: Assets/Bundles/Themes/SnowMountain/Forrest/Forrest01.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 12d01be3bf81b270e89f08469f41ca8a
+    m_Address: Assets/Bundles/Themes/SnowMountain/Forrest/Forrest02.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 38ad8ba5696d5608b9189670836ae88f
+    m_Address: Assets/Bundles/Themes/SnowMountain/Forrest/Forrest03.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 6fafac7e9f8fc6a1183de1e1d8e563c6
+    m_Address: Assets/Bundles/Themes/SnowMountain/Forrest/Forrest04.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 735e874f947d0e143a6b4e83f8a7283a, type: 2}
   m_SchemaSet:
