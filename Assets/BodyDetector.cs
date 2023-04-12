@@ -30,7 +30,7 @@ public class BodyDetector : MonoBehaviour
             new CascadeClassifier(System
                     .IO
                     .Path
-                    .Combine(Application.dataPath, "haarcascade_frontalface_default.xml"));
+                    .Combine(Application.dataPath, "haarcascade_upperbody.xml"));
     }
 
     // Update is called once per frame
@@ -44,7 +44,7 @@ public class BodyDetector : MonoBehaviour
 
     void findNewBody(Mat frame)
     {
-        var bodies = cascade.DetectMultiScale(frame, 1.1, 2, HaarDetectionType.ScaleImage);
+        var bodies = cascade.DetectMultiScale(frame, 1.1, 3, HaarDetectionType.ScaleImage);
         // Track the movement of the body
         if (bodies.Length > 0)
         {
@@ -68,11 +68,11 @@ public class BodyDetector : MonoBehaviour
             {
                 // Detect the direction of the body movement
                 float bodyX = bodyRect.Location.X;// + bodyRect.Size.Width;
-                if (bodyX < 150)
+                if (bodyX < 80)
                 {
                     mMovementDirection = 2;
                 }
-                else if (bodyX >= 160 && bodyX <= 380)
+                else if (bodyX >= 90 && bodyX <= 210)
                 {
                     mMovementDirection = 1;
                 }
