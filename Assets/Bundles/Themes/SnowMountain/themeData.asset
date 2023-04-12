@@ -19,11 +19,19 @@ MonoBehaviour:
   zones:
   - length: 500
     prefabList:
-    - m_AssetGUID: a5e49d3e0cc1caa43be2d44aa4ded9d2
+    - m_AssetGUID: 49cb088ea67b07982b9fa511e626a1cb
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
-    - m_AssetGUID: 7a1b4160766e54d439a880b7bc2df4a3
+    - m_AssetGUID: 12d01be3bf81b270e89f08469f41ca8a
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    - m_AssetGUID: 38ad8ba5696d5608b9189670836ae88f
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    - m_AssetGUID: 6fafac7e9f8fc6a1183de1e1d8e563c6
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
