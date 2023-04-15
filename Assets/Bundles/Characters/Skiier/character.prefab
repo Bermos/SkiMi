@@ -264,7 +264,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterName: Skiier
-  cost: 10
+  cost: 0
   premiumCost: 0
   accessories: []
   animator: {fileID: 9555380}

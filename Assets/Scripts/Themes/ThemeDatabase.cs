@@ -31,11 +31,9 @@ public class ThemeDatabase
 
             yield return Addressables.LoadAssetsAsync<ThemeData>("themeData", op =>
             {
-                if (op != null)
-                {
-                    if(!themeDataList.ContainsKey(op.themeName))
-                        themeDataList.Add(op.themeName, op);
-                }
+                if (op == null) return;
+                if(!themeDataList.ContainsKey(op.themeName))
+                    themeDataList.Add(op.themeName, op);
             });
 
             m_Loaded = true;

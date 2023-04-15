@@ -13,17 +13,25 @@ MonoBehaviour:
   m_Name: themeData
   m_EditorClassIdentifier: 
   themeName: SnowMountain
-  cost: 100
+  cost: 0
   premiumCost: 0
   themeIcon: {fileID: 21300038, guid: e1a536f74c7ef384a8d7132148ace0c8, type: 3}
   zones:
   - length: 500
     prefabList:
-    - m_AssetGUID: dcbeb2ef97131d241b111f35d4788477
+    - m_AssetGUID: 49cb088ea67b07982b9fa511e626a1cb
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
-    - m_AssetGUID: a5e49d3e0cc1caa43be2d44aa4ded9d2
+    - m_AssetGUID: 12d01be3bf81b270e89f08469f41ca8a
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    - m_AssetGUID: 38ad8ba5696d5608b9189670836ae88f
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    - m_AssetGUID: 6fafac7e9f8fc6a1183de1e1d8e563c6
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
