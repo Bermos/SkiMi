@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -6351955057700387195}
   - component: {fileID: 8495973916179327347}
   m_Layer: 9
-  m_Name: barrier_4
+  m_Name: ObstacleSnowStone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
