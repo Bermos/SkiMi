@@ -27,6 +27,7 @@ public class BodyDetector : MonoBehaviour
     private readonly Queue<bool> _detectionWindow = new(); // Queue to store detection results
     private int _positiveDetections = 0; // Counter for positive detections in the window
     private static bool detectionOverThreshhold = false;
+    private static float detectionPercent = 0.0f;
 
     void Start()
     {
@@ -110,7 +111,8 @@ public class BodyDetector : MonoBehaviour
         if (isBodyDetected) _positiveDetections++;
 
         // If a player is detected over the threshold, start the game
-        detectionOverThreshhold = (_positiveDetections / (float)detectionWindowSize) > detectionThreshold;
+        detectionPercent = _positiveDetections / (float)detectionWindowSize;
+        detectionOverThreshhold = detectionPercent > detectionThreshold;
     }
 
     void display(Mat frame)
@@ -128,5 +130,10 @@ public class BodyDetector : MonoBehaviour
     public static bool GetDetectionOverThreshold()
     {
         return detectionOverThreshhold;
+    }
+
+    public static float GetDetectionPercent()
+    {
+        return detectionPercent;
     }
 }
