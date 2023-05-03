@@ -141,7 +141,8 @@ MonoBehaviour:
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
-  obstaclePositions: []
+  obstaclePositions:
+  - 0.5
 --- !u!33 &6936229583843096085
 MeshFilter:
   m_ObjectHideFlags: 0

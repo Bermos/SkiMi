@@ -131,15 +131,12 @@ MonoBehaviour:
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
-  - m_AssetGUID: 04e70735f4a3e4540b054518a8b7d903
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
   - m_AssetGUID: 79a2cbb82f9bafd5d9c5017f79f4c4e6
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
-  obstaclePositions: []
+  obstaclePositions:
+  - 0.5
 --- !u!33 &-6163335280916627639
 MeshFilter:
   m_ObjectHideFlags: 0
