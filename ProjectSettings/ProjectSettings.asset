@@ -136,7 +136,6 @@ PlayerSettings:
     Others: 1
   bundleVersion: 1.0
   preloadedAssets:
-  - {fileID: 7496549046389242867, guid: ce036065195faab40895840c9c31685b, type: 2}
   - {fileID: 11400000, guid: 2d323dab36baa1e489d1d9aa70242f8e, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -888,7 +887,7 @@ PlayerSettings:
   allowUnsafeCode: 1
   useDeterministicCompilation: 1
   enableRoslynAnalyzers: 1
-  selectedPlatform: 2
+  selectedPlatform: 0
   additionalIl2CppArgs: 
   scriptingRuntimeVersion: 1
   gcIncremental: 0

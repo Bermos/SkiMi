@@ -39,7 +39,7 @@ MonoBehaviour:
   premiumCollectible: {fileID: 1000010457517272, guid: ac3c86c2382618643bfda6ab3cc81a0b,
     type: 3}
   cloudPrefabs:
-  - {fileID: 1000012225143368, guid: 1225524528f67794ead226c3401f6bd6, type: 3}
+  - {fileID: 1000012225143368, guid: 75c1ce9fdbac5bd45a3ddd6efac05855, type: 3}
   - {fileID: 1000012941456988, guid: a0ea39d2a87ecda48bb676fd38b92c04, type: 3}
   - {fileID: 1000013540275922, guid: 17e653cfe45bc1a4f9938e1dc131a85f, type: 3}
   cloudMinimumDistance: {x: 0, y: 20, z: 15}

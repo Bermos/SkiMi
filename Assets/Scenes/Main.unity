@@ -14299,6 +14299,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mMovementDirection: 0
+  detectionWindowSize: 100
+  detectionThreshold: 0.8
 --- !u!64 &1152828396
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -25478,7 +25480,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterController: {fileID: 2094493432}
   minSpeed: 10
-  maxSpeed: 30
+  maxSpeed: 15
   speedStep: 4
   laneOffset: 1.5
   invincible: 0
