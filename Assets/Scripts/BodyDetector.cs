@@ -32,12 +32,26 @@ public class BodyDetector : MonoBehaviour
 
     void Start()
     {
+        // Get webcam devices
         WebCamDevice[] devices = WebCamTexture.devices;
+        
+        // Check if there are any devices
+        if (devices.Length == 0) ExitWithError("No webcams found");
 
         _webCamTexture = new WebCamTexture(devices[0].name);
         _webCamTexture.Play();
-        cascade =
-            new CascadeClassifier(Path.Combine(Application.streamingAssetsPath, "CVModels/haarcascade_upperbody.xml"));
+        var cvModel = Path.Combine(Application.streamingAssetsPath, "CVModels/haarcascade_upperbody.xml");
+        
+        // Check if the model exists
+        if (!File.Exists(cvModel)) ExitWithError("CV model not found: " + cvModel);
+        
+        cascade = new CascadeClassifier(cvModel);
+    }
+
+    private static void ExitWithError(string errorMessage)
+    {
+        Debug.LogError(errorMessage);
+        Application.Quit();
     }
 
     // Update is called once per frame
