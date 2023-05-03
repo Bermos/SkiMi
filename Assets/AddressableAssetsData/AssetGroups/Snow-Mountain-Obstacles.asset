@@ -29,10 +29,6 @@ MonoBehaviour:
     m_Address: ObstacleStone
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 04e70735f4a3e4540b054518a8b7d903
-    m_Address: ObstacleSnowStone
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   - m_GUID: 79a2cbb82f9bafd5d9c5017f79f4c4e6
     m_Address: ObstacleTree
     m_ReadOnly: 0

@@ -73,8 +73,8 @@ public class LoadoutState : AState
 
     public override void Enter(AState from)
     {
-        tutorialBlocker.SetActive(!PlayerData.instance.tutorialDone);
-        tutorialPrompt.SetActive(false);
+        //tutorialBlocker.SetActive(!PlayerData.instance.tutorialDone);
+        //tutorialPrompt.SetActive(false);
 
         inventoryCanvas.gameObject.SetActive(true);
         missionPopup.gameObject.SetActive(false);
@@ -173,6 +173,12 @@ public class LoadoutState : AState
 
 		charSelect.gameObject.SetActive(PlayerData.instance.characters.Count > 1);
 		themeSelect.gameObject.SetActive(PlayerData.instance.themes.Count > 1);
+
+		Debug.Log(BodyDetector.GetDetectionOverThreshold());
+		if (BodyDetector.GetDetectionOverThreshold())
+		{
+			StartGame();
+		}
     }
 
 	public void GoToStore()

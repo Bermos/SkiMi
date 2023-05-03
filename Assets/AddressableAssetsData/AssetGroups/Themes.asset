@@ -17,16 +17,6 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 39cca0338cf24d84983f02f76cd584ea
   m_SerializeEntries:
-  - m_GUID: 0d80a5ee0a199154784a904ed88da003
-    m_Address: themeData
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - themeData
-  - m_GUID: ca6db81f67984284191d6a142204de55
-    m_Address: themeData
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - themeData
   - m_GUID: ad8e5e8cb63a0594bb159c27e126abe9
     m_Address: Assets/Bundles/Themes/SnowMountain/themeData.asset
     m_ReadOnly: 0

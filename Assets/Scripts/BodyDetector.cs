@@ -19,6 +19,14 @@ public class BodyDetector : MonoBehaviour
 
     // Variables to store movement direction
     public int mMovementDirection = 0; // 0 = no movement, -1 = left, 1 = right
+    
+    
+    public int detectionWindowSize = 100; // Number of detections in the window (e.g., 100)
+    public float detectionThreshold = 0.8f; // Percentage of positive detections to start the game (e.g., 80%)
+    
+    private readonly Queue<bool> _detectionWindow = new(); // Queue to store detection results
+    private int _positiveDetections = 0; // Counter for positive detections in the window
+    private static bool detectionOverThreshhold = false;
 
     void Start()
     {
@@ -46,7 +54,8 @@ public class BodyDetector : MonoBehaviour
     {
         var bodies = cascade.DetectMultiScale(frame, 1.04, 5, HaarDetectionType.ScaleImage, new Size(200, 200));
         // Track the movement of the body
-        if (bodies.Length > 0)
+        var isBodyDetected = bodies.Length > 0;
+        if (isBodyDetected)
         {
             OpenCvSharp.Rect bodyRect = new OpenCvSharp.Rect();
             // Get the largest body in the frame
@@ -91,6 +100,18 @@ public class BodyDetector : MonoBehaviour
             mLastBodyX =
                 mLastBodyRect.Location.X + (mLastBodyRect.Size.Width / 2);
         }
+
+        if (_detectionWindow.Count >= detectionWindowSize)
+        {
+            var oldDetection = _detectionWindow.Dequeue();
+            if (oldDetection) _positiveDetections--;
+        }
+        _detectionWindow.Enqueue(isBodyDetected);
+        if (isBodyDetected) _positiveDetections++;
+
+        // If a player is detected over the threshold, start the game
+        detectionOverThreshhold = (_positiveDetections / (float)detectionWindowSize) > detectionThreshold;
+        Debug.Log($"{_positiveDetections / (float)detectionWindowSize}: {detectionOverThreshhold}");
     }
 
     void display(Mat frame)
@@ -103,5 +124,10 @@ public class BodyDetector : MonoBehaviour
         Texture newTexture = OpenCvSharp.Unity.MatToTexture(frame);
         GetComponent<Renderer>().material.mainTexture = newTexture;
 
+    }
+
+    public static bool GetDetectionOverThreshold()
+    {
+        return detectionOverThreshhold;
     }
 }

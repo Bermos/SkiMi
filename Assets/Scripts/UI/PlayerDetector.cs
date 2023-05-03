@@ -44,7 +44,9 @@ public class PlayerDetector : MonoBehaviour
         if (isBodyDetected) _positiveDetections++;
 
         // If a player is detected over the threshold, start the game
-        if (_positiveDetections / (float)detectionWindowSize >= detectionThreshold)
+        var positiveDetections = _positiveDetections / (float)detectionWindowSize;
+        Debug.Log(positiveDetections);
+        if (positiveDetections >= detectionThreshold)
         {
             StartGame();
         }
