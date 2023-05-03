@@ -27,8 +27,8 @@ public class BodyDetector : MonoBehaviour
 
     private readonly Queue<bool> _detectionWindow = new(); // Queue to store detection results
     private int _positiveDetections = 0; // Counter for positive detections in the window
-    private static bool detectionOverThreshhold = false;
-    private static float detectionPercent = 0.0f;
+    private static bool _detectionOverThreshhold = false;
+    private static float _detectionPercent = 0.0f;
 
     void Start()
     {
@@ -60,7 +60,7 @@ public class BodyDetector : MonoBehaviour
         //GetComponent<Renderer>().material.mainTexture = _webCamTexture;
         Mat frame = OpenCvSharp.Unity.TextureToMat(_webCamTexture);
         findNewBody(frame);
-        display(frame);
+        Display(frame);
     }
 
     void findNewBody(Mat frame)
@@ -123,11 +123,11 @@ public class BodyDetector : MonoBehaviour
         if (isBodyDetected) _positiveDetections++;
 
         // If a player is detected over the threshold, start the game
-        detectionPercent = _positiveDetections / (float)detectionWindowSize;
-        detectionOverThreshhold = detectionPercent > detectionThreshold;
+        _detectionPercent = _positiveDetections / (float)detectionWindowSize;
+        _detectionOverThreshhold = _detectionPercent > detectionThreshold;
     }
 
-    void display(Mat frame)
+    private void Display(Mat frame)
     {
         if (mLastBodyRect != null)
         {
@@ -140,11 +140,11 @@ public class BodyDetector : MonoBehaviour
 
     public static bool GetDetectionOverThreshold()
     {
-        return detectionOverThreshhold;
+        return _detectionOverThreshhold;
     }
 
     public static float GetDetectionPercent()
     {
-        return detectionPercent;
+        return _detectionPercent;
     }
 }

@@ -240,8 +240,6 @@ public class TrackManager : MonoBehaviour
 
             m_SafeSegementLeft = m_IsTutorial ? 0 : k_StartingSafeSegments;
 
-            Coin.coinPool = new Pooler(currentTheme.collectiblePrefab, k_StartingCoinPoolSize);
-
             PlayerData.instance.StartRunMissions(this);
 
 #if UNITY_ANALYTICS
@@ -612,7 +610,7 @@ public class TrackManager : MonoBehaviour
 
                 if (laneValid)
                 {
-                    pos = pos + ((currentLane - 1) * laneOffset * (rot * Vector3.right));
+                    pos += ((currentLane - 1) * laneOffset * (rot * Vector3.right));
 
 
                     GameObject toUse = null;
@@ -637,26 +635,6 @@ public class TrackManager : MonoBehaviour
                             toUse = op.Result as GameObject;
                             toUse.transform.SetParent(segment.transform, true);
                         }
-                    }
-                    else if (Random.value < premiumChance)
-                    {
-                        m_TimeSinceLastPremium = 0.0f;
-                        premiumChance = 0.0f;
-
-                        AsyncOperationHandle op = Addressables.InstantiateAsync(currentTheme.premiumCollectible.name, pos, rot);
-                        yield return op;
-                        if (op.Result == null || !(op.Result is GameObject))
-                        {
-                            Debug.LogWarning(string.Format("Unable to load collectable {0}.", currentTheme.premiumCollectible.name));
-                            yield break;
-                        }
-                        toUse = op.Result as GameObject;
-                        toUse.transform.SetParent(segment.transform, true);
-                    }
-                    else
-                    {
-                        toUse = Coin.coinPool.Get(pos, rot);
-                        toUse.transform.SetParent(segment.collectibleTransform, true);
                     }
 
                     if (toUse != null)
