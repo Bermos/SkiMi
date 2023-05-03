@@ -44,7 +44,7 @@ public class BodyDetector : MonoBehaviour
 
     void findNewBody(Mat frame)
     {
-        var bodies = cascade.DetectMultiScale(frame, 1.1, 3, HaarDetectionType.ScaleImage);
+        var bodies = cascade.DetectMultiScale(frame, 1.04, 5, HaarDetectionType.ScaleImage, new Size(200, 200));
         // Track the movement of the body
         if (bodies.Length > 0)
         {
@@ -63,6 +63,7 @@ public class BodyDetector : MonoBehaviour
                 }
             } */
             bodyRect = bodies[0];
+            Debug.Log(bodies[0]);
             // Track the movement of the body
             if (mLastBodyRect != null)
             {
@@ -81,10 +82,9 @@ public class BodyDetector : MonoBehaviour
                     mMovementDirection = 0;
                 }
 
-                // TODO: Trigger an event in the game based on the direction of the body movement (e.g. play a different animation or adjust the speed of the game)
             }
-            Debug.Log("Location: "+bodyRect.Location);
-            Debug.Log("Size: "+bodyRect.Size);
+            //Debug.Log("Location: "+bodyRect.Location);
+            //Debug.Log("Size: "+bodyRect.Size);
 
             // Save the current body position and direction for comparison in the next frame
             mLastBodyRect = bodyRect;

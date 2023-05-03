@@ -25,7 +25,7 @@ namespace OpenCvSharp
         public const string DllVCRuntime = "vcruntime140";
         public const string DllMsvcp = "msvcp140";
 //UFIX
-#if !UNITY_EDITOR && UNITY_IOS 
+#if !UNITY_EDITOR && UNITY_ANDROID 
 		public const string DllExtern = "__Internal";
 #else
 		public const string DllExtern = "OpenCvSharpExtern";
