@@ -174,7 +174,7 @@ public class LoadoutState : AState
 		charSelect.gameObject.SetActive(PlayerData.instance.characters.Count > 1);
 		themeSelect.gameObject.SetActive(PlayerData.instance.themes.Count > 1);
 
-		Debug.Log(BodyDetector.GetDetectionOverThreshold());
+		Debug.Log($"I have been called!!!!!! {BodyDetector.GetDetectionOverThreshold()}");
 		if (BodyDetector.GetDetectionOverThreshold())
 		{
 			StartGame();

@@ -111,7 +111,6 @@ public class BodyDetector : MonoBehaviour
 
         // If a player is detected over the threshold, start the game
         detectionOverThreshhold = (_positiveDetections / (float)detectionWindowSize) > detectionThreshold;
-        Debug.Log($"{_positiveDetections / (float)detectionWindowSize}: {detectionOverThreshhold}");
     }
 
     void display(Mat frame)
