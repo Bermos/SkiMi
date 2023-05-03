@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using OpenCvSharp;
 using UnityEngine;
 
@@ -19,11 +20,11 @@ public class BodyDetector : MonoBehaviour
 
     // Variables to store movement direction
     public int mMovementDirection = 0; // 0 = no movement, -1 = left, 1 = right
-    
-    
+
+
     public int detectionWindowSize = 100; // Number of detections in the window (e.g., 100)
     public float detectionThreshold = 0.8f; // Percentage of positive detections to start the game (e.g., 80%)
-    
+
     private readonly Queue<bool> _detectionWindow = new(); // Queue to store detection results
     private int _positiveDetections = 0; // Counter for positive detections in the window
     private static bool detectionOverThreshhold = false;
@@ -36,10 +37,7 @@ public class BodyDetector : MonoBehaviour
         _webCamTexture = new WebCamTexture(devices[0].name);
         _webCamTexture.Play();
         cascade =
-            new CascadeClassifier(System
-                    .IO
-                    .Path
-                    .Combine(Application.dataPath, "haarcascade_upperbody.xml"));
+            new CascadeClassifier(Path.Combine(Application.streamingAssetsPath, "CVModels/haarcascade_upperbody.xml"));
     }
 
     // Update is called once per frame
@@ -78,7 +76,7 @@ public class BodyDetector : MonoBehaviour
             if (mLastBodyRect != null)
             {
                 // Detect the direction of the body movement
-                float bodyX = bodyRect.Location.X;// + bodyRect.Size.Width;
+                float bodyX = bodyRect.Location.X; // + bodyRect.Size.Width;
                 if (bodyX < 80)
                 {
                     mMovementDirection = 2;
@@ -91,7 +89,6 @@ public class BodyDetector : MonoBehaviour
                 {
                     mMovementDirection = 0;
                 }
-
             }
             //Debug.Log("Location: "+bodyRect.Location);
             //Debug.Log("Size: "+bodyRect.Size);
@@ -107,6 +104,7 @@ public class BodyDetector : MonoBehaviour
             var oldDetection = _detectionWindow.Dequeue();
             if (oldDetection) _positiveDetections--;
         }
+
         _detectionWindow.Enqueue(isBodyDetected);
         if (isBodyDetected) _positiveDetections++;
 
@@ -124,7 +122,6 @@ public class BodyDetector : MonoBehaviour
 
         Texture newTexture = OpenCvSharp.Unity.MatToTexture(frame);
         GetComponent<Renderer>().material.mainTexture = newTexture;
-
     }
 
     public static bool GetDetectionOverThreshold()
