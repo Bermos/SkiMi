@@ -14,12 +14,12 @@ public class GameOverState : AState
     public Canvas canvas;
     public MissionUI missionPopup;
 
-	public AudioClip gameOverTheme;
-
 	public Leaderboard miniLeaderboard;
 	public Leaderboard fullLeaderboard;
 
     public GameObject addButton;
+    
+    private float _timeToAutoRestart;
 
     public override void Enter(AState from)
     {
@@ -37,11 +37,7 @@ public class GameOverState : AState
 
 		CreditCoins();
 
-		if (MusicPlayer.instance.GetStem(0) != gameOverTheme)
-		{
-            MusicPlayer.instance.SetStem(0, gameOverTheme);
-			StartCoroutine(MusicPlayer.instance.RestartAllStems());
-        }
+		_timeToAutoRestart = 7.5f;
     }
 
 	public override void Exit(AState to)
@@ -57,7 +53,12 @@ public class GameOverState : AState
 
     public override void Tick()
     {
-        
+	    _timeToAutoRestart -= Time.deltaTime;
+	    Debug.Log(_timeToAutoRestart);
+        if (_timeToAutoRestart <= 0.0f)
+		{
+			GoToLoadout();
+		}
     }
 
 	public void OpenLeaderboard()
