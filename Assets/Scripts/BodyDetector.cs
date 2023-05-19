@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -8,6 +9,9 @@ public class BodyDetector : MonoBehaviour
 {
     // Start is called before the first frame update
     private WebCamTexture _webCamTexture;
+
+    private Mat _frame;
+    private Texture _recTexture;
 
     private CascadeClassifier cascade;
 
@@ -58,14 +62,15 @@ public class BodyDetector : MonoBehaviour
     void Update()
     {
         //GetComponent<Renderer>().material.mainTexture = _webCamTexture;
-        Mat frame = OpenCvSharp.Unity.TextureToMat(_webCamTexture);
-        findNewBody(frame);
-        Display(frame);
+        _frame = OpenCvSharp.Unity.TextureToMat(_webCamTexture);
+        findNewBody();
+        Display();
+        GC.Collect();
     }
 
-    void findNewBody(Mat frame)
+    void findNewBody()
     {
-        var bodies = cascade.DetectMultiScale(frame, 1.04, 5, HaarDetectionType.ScaleImage, new Size(200, 200));
+        var bodies = cascade.DetectMultiScale(_frame, 1.04, 5, HaarDetectionType.ScaleImage, new Size(200, 200));
         // Track the movement of the body
         var isBodyDetected = bodies.Length > 0;
         if (isBodyDetected)
@@ -85,7 +90,6 @@ public class BodyDetector : MonoBehaviour
                 }
             } */
             bodyRect = bodies[0];
-            Debug.Log(bodies[0]);
             // Track the movement of the body
             if (mLastBodyRect != null)
             {
@@ -127,15 +131,15 @@ public class BodyDetector : MonoBehaviour
         _detectionOverThreshhold = _detectionPercent > detectionThreshold;
     }
 
-    private void Display(Mat frame)
+    private void Display()
     {
         if (mLastBodyRect != null)
         {
-            frame.Rectangle(mLastBodyRect, new Scalar(250, 0, 0), 2);
+            _frame.Rectangle(mLastBodyRect, new Scalar(250, 0, 0), 2);
         }
 
-        Texture newTexture = OpenCvSharp.Unity.MatToTexture(frame);
-        GetComponent<Renderer>().material.mainTexture = newTexture;
+        _recTexture = OpenCvSharp.Unity.MatToTexture(_frame);
+        GetComponent<Renderer>().material.mainTexture = _recTexture;
     }
 
     public static bool GetDetectionOverThreshold()

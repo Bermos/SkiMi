@@ -3855,7 +3855,6 @@ MonoBehaviour:
   trackManager: {fileID: 1958487560}
   canvas: {fileID: 455205751}
   missionPopup: {fileID: 80306028}
-  gameOverTheme: {fileID: 8300000, guid: 15e26518785848f4caf8ba236b4d0690, type: 3}
   miniLeaderboard: {fileID: 859562874}
   fullLeaderboard: {fileID: 1815696064}
   addButton: {fileID: 0}

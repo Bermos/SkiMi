@@ -195,7 +195,7 @@ public class TrackManager : MonoBehaviour
 
             //Addressables 1.0.1-preview
             // Spawn the player
-            var op = Addressables.InstantiateAsync(PlayerData.instance.characters[PlayerData.instance.usedCharacter],
+            var op = Addressables.InstantiateAsync("Skiier",
                 Vector3.zero,
                 Quaternion.identity);
             yield return op;
@@ -221,7 +221,7 @@ public class TrackManager : MonoBehaviour
             if (m_IsTutorial)
                 m_CurrentThemeData = tutorialThemeData;
             else
-                m_CurrentThemeData = ThemeDatabase.GetThemeData(PlayerData.instance.themes[PlayerData.instance.usedTheme]);
+                m_CurrentThemeData = ThemeDatabase.GetThemeData("SnowMountain");// #PlayerData.instance.themes[PlayerData.instance.usedTheme]);
 
             m_CurrentZone = 0;
             m_CurrentZoneDistance = 0;
@@ -461,10 +461,6 @@ public class TrackManager : MonoBehaviour
             {
                 PlayerData.instance.rank += 1;
                 PlayerData.instance.Save();
-#if UNITY_ANALYTICS
-//"level" in our game are milestone the player have to reach : one every 300m
-            AnalyticsEvent.LevelUp(PlayerData.instance.rank);
-#endif
             }
 
             PlayerData.instance.UpdateMissions(this);
