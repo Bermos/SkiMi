@@ -1,8 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-#if UNITY_ANALYTICS
-using UnityEngine.Analytics;
-#endif
 
 /// <summary>
 /// The Game manager is a state machine, that will switch between state according to current gamestate.
@@ -55,17 +52,7 @@ public class GameManager : MonoBehaviour
 
     protected void OnApplicationQuit()
     {
-#if UNITY_ANALYTICS
-        // We are exiting during game, so this make this invalid, send an event to log it
-        // NOTE : this is only called on standalone build, as on mobile this function isn't called
-        bool inGameExit = m_StateStack[m_StateStack.Count - 1].GetType() == typeof(GameState);
-
-        Analytics.CustomEvent("user_end_session", new Dictionary<string, object>
-        {
-            { "force_exit", inGameExit },
-            { "timer", Time.realtimeSinceStartup }
-        });
-#endif
+        // TODO: Write event to log
     }
 
     // State management

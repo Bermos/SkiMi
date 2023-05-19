@@ -2,10 +2,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-#if UNITY_ANALYTICS
-using UnityEngine.Analytics;
-#endif
-
 /// <summary>
 /// State pushed on the GameManager during the Loadout, when player select player, theme and accessories
 /// Take care of init the UI, load all the data used for it etc.

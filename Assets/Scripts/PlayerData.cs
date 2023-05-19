@@ -1,9 +1,6 @@
 ﻿using UnityEngine;
 using System.IO;
 using System.Collections.Generic;
-#if UNITY_ANALYTICS
-using UnityEngine.Analytics;
-#endif
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -152,18 +149,6 @@ public class PlayerData
     public void ClaimMission(MissionBase mission)
     {        
         premium += mission.reward;
-        
-#if UNITY_ANALYTICS // Using Analytics Standard Events v0.3.0
-        AnalyticsEvent.ItemAcquired(
-            AcquisitionType.Premium, // Currency type
-            "mission",               // Context
-            mission.reward,          // Amount
-            "anchovies",             // Item ID
-            premium,                 // Item balance
-            "consumable",            // Item type
-            rank.ToString()          // Level
-        );
-#endif
         
         missions.Remove(mission);
 
