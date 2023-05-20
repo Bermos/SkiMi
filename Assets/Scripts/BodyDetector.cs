@@ -1,23 +1,19 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using OpenCvSharp;
 using UnityEngine;
+using Rect = OpenCvSharp.Rect;
 
 public class BodyDetector : MonoBehaviour
 {
     // Start is called before the first frame update
     private WebCamTexture _webCamTexture;
 
-    private Mat _frame;
-    private Texture _recTexture;
-
     private CascadeClassifier cascade;
 
     private float mLastBodyX = 0f;
 
-    private OpenCvSharp.Rect mLastBodyRect;
+    private Rect mLastBodyRect;
 
     // Variables to store OpenCV objects
     private Mat mRgba;
@@ -33,6 +29,9 @@ public class BodyDetector : MonoBehaviour
     private int _positiveDetections = 0; // Counter for positive detections in the window
     private static bool _detectionOverThreshhold = false;
     private static float _detectionPercent = 0.0f;
+    
+    // Display
+    private Texture2D _currentTexture = null;
 
     void Start()
     {
@@ -50,6 +49,10 @@ public class BodyDetector : MonoBehaviour
         if (!File.Exists(cvModel)) ExitWithError("CV model not found: " + cvModel);
         
         cascade = new CascadeClassifier(cvModel);
+        
+        // Create frame once to get the size to create the 2D texture
+        var frame = OpenCvSharp.Unity.TextureToMat(_webCamTexture);
+        _currentTexture = new Texture2D(frame.Width, frame.Height, TextureFormat.RGBA32, false);
     }
 
     private static void ExitWithError(string errorMessage)
@@ -62,20 +65,19 @@ public class BodyDetector : MonoBehaviour
     void Update()
     {
         //GetComponent<Renderer>().material.mainTexture = _webCamTexture;
-        _frame = OpenCvSharp.Unity.TextureToMat(_webCamTexture);
-        findNewBody();
-        Display();
-        GC.Collect();
+        var frame = OpenCvSharp.Unity.TextureToMat(_webCamTexture);
+        findNewBody(frame);
+        Display(frame);
     }
 
-    void findNewBody()
+    void findNewBody(Mat frame)
     {
-        var bodies = cascade.DetectMultiScale(_frame, 1.04, 5, HaarDetectionType.ScaleImage, new Size(200, 200));
+        var bodies = cascade.DetectMultiScale(frame, 1.04, 5, HaarDetectionType.ScaleImage, new Size(200, 200));
         // Track the movement of the body
         var isBodyDetected = bodies.Length > 0;
         if (isBodyDetected)
         {
-            OpenCvSharp.Rect bodyRect = new OpenCvSharp.Rect();
+            Rect bodyRect = new Rect();
             // Get the largest body in the frame
             /*
             foreach (OpenCvSharp.Rect body in bodies)
@@ -113,8 +115,7 @@ public class BodyDetector : MonoBehaviour
 
             // Save the current body position and direction for comparison in the next frame
             mLastBodyRect = bodyRect;
-            mLastBodyX =
-                mLastBodyRect.Location.X + (mLastBodyRect.Size.Width / 2);
+            mLastBodyX = mLastBodyRect.Location.X + (mLastBodyRect.Size.Width / 2);
         }
 
         if (_detectionWindow.Count >= detectionWindowSize)
@@ -131,15 +132,15 @@ public class BodyDetector : MonoBehaviour
         _detectionOverThreshhold = _detectionPercent > detectionThreshold;
     }
 
-    private void Display()
+    private void Display(Mat frame)
     {
         if (mLastBodyRect != null)
         {
-            _frame.Rectangle(mLastBodyRect, new Scalar(250, 0, 0), 2);
+            frame.Rectangle(mLastBodyRect, new Scalar(250, 0, 0), 2);
         }
 
-        _recTexture = OpenCvSharp.Unity.MatToTexture(_frame);
-        GetComponent<Renderer>().material.mainTexture = _recTexture;
+        OpenCvSharp.Unity.MatToTexture(frame, _currentTexture);
+        GetComponent<Renderer>().material.mainTexture = _currentTexture;
     }
 
     public static bool GetDetectionOverThreshold()
@@ -150,5 +151,14 @@ public class BodyDetector : MonoBehaviour
     public static float GetDetectionPercent()
     {
         return _detectionPercent;
+    }
+    
+    private void OnDestroy()
+    {
+        // Release the texture used to display the webcam
+        if (_currentTexture != null)
+        {
+            Destroy(_currentTexture);
+        }
     }
 }
