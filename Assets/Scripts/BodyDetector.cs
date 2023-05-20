@@ -29,9 +29,11 @@ public class BodyDetector : MonoBehaviour
     // Display
     private Rect _currentBodyRect;
     private Texture2D _currentTexture;
+    private Renderer _renderer;
 
     void Start()
     {
+        _renderer = GetComponent<Renderer>();
         // Get webcam devices
         WebCamDevice[] devices = WebCamTexture.devices;
         
@@ -120,7 +122,7 @@ public class BodyDetector : MonoBehaviour
         }
 
         OpenCvSharp.Unity.MatToTexture(frame, _currentTexture);
-        GetComponent<Renderer>().material.mainTexture = _currentTexture;
+        _renderer.material.mainTexture = _currentTexture;
     }
 
     public static bool GetDetectionOverThreshold()
