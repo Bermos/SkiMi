@@ -22,9 +22,9 @@ public class BodyDetector : MonoBehaviour
     public float detectionThreshold = 0.8f; // Percentage of positive detections to start the game (e.g., 80%)
 
     private readonly Queue<bool> _detectionWindow = new(); // Queue to store detection results
-    private int _positiveDetections = 0; // Counter for positive detections in the window
-    private static bool _detectionOverThreshhold = false;
-    private static float _detectionPercent = 0.0f;
+    private int _positiveDetections; // Counter for positive detections in the window
+    private static bool _detectionOverThreshold;
+    private static float _detectionPercent;
     
     // Display
     private Rect _currentBodyRect;
@@ -52,6 +52,7 @@ public class BodyDetector : MonoBehaviour
         // Create frame once to get the size to create the 2D texture
         var frame = OpenCvSharp.Unity.TextureToMat(_webCamTexture);
         _currentTexture = new Texture2D(frame.Width, frame.Height, TextureFormat.RGBA32, false);
+        _currentBodyRect = new Rect();
     }
 
     private static void ExitWithError(string errorMessage)
@@ -72,32 +73,31 @@ public class BodyDetector : MonoBehaviour
     void findNewBody(Mat frame)
     {
         var bodies = cascade.DetectMultiScale(frame, 1.04, 5, HaarDetectionType.ScaleImage, new Size(200, 200));
+        
         // Track the movement of the body
         var isBodyDetected = bodies.Length > 0;
         if (isBodyDetected)
         {
-            Rect bodyRect = new Rect();
-            bodyRect = bodies[0];
+            _currentBodyRect = bodies[0];
             
-            // Track the movement of the body
-            if (_currentBodyRect != null)
+            // Detect the direction of the body movement
+            switch (_currentBodyRect.Location.X)
             {
-                // Detect the direction of the body movement
-                float bodyX = bodyRect.Location.X; // + bodyRect.Size.Width;
-                if (bodyX < 80)
-                {
+                case < 80:
                     mMovementDirection = 2;
-                }
-                else if (bodyX >= 90 && bodyX <= 210)
-                {
+                    break;
+                
+                case >= 90 and <= 210:
                     mMovementDirection = 1;
-                }
-                else
-                {
+                    break;
+                
+                case > 210:
                     mMovementDirection = 0;
-                }
+                    break;
+                
+                // default:
+                    // Do nothing, out of any acceptable ranges
             }
-            _currentBodyRect = bodyRect;
         }
 
         if (_detectionWindow.Count >= detectionWindowSize)
@@ -111,15 +111,12 @@ public class BodyDetector : MonoBehaviour
 
         // If a player is detected over the threshold, start the game
         _detectionPercent = _positiveDetections / (float)detectionWindowSize;
-        _detectionOverThreshhold = _detectionPercent > detectionThreshold;
+        _detectionOverThreshold = _detectionPercent > detectionThreshold;
     }
 
     private void Display(Mat frame)
     {
-        if (_currentBodyRect != null)
-        {
-            frame.Rectangle(_currentBodyRect, new Scalar(250, 0, 0), 2);
-        }
+        frame.Rectangle(_currentBodyRect, new Scalar(250, 0, 0), 2);
 
         OpenCvSharp.Unity.MatToTexture(frame, _currentTexture);
         _renderer.material.mainTexture = _currentTexture;
@@ -127,7 +124,7 @@ public class BodyDetector : MonoBehaviour
 
     public static bool GetDetectionOverThreshold()
     {
-        return _detectionOverThreshhold;
+        return _detectionOverThreshold;
     }
 
     public static float GetDetectionPercent()
