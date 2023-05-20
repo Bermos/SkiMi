@@ -11,10 +11,6 @@ public class BodyDetector : MonoBehaviour
 
     private CascadeClassifier cascade;
 
-    private float mLastBodyX = 0f;
-
-    private Rect mLastBodyRect;
-
     // Variables to store OpenCV objects
     private Mat mRgba;
 
@@ -31,7 +27,8 @@ public class BodyDetector : MonoBehaviour
     private static float _detectionPercent = 0.0f;
     
     // Display
-    private Texture2D _currentTexture = null;
+    private Rect _currentBodyRect;
+    private Texture2D _currentTexture;
 
     void Start()
     {
@@ -78,22 +75,10 @@ public class BodyDetector : MonoBehaviour
         if (isBodyDetected)
         {
             Rect bodyRect = new Rect();
-            // Get the largest body in the frame
-            /*
-            foreach (OpenCvSharp.Rect body in bodies)
-            {
-                if (
-                    bodyRect == null ||
-                    body.Size.Height * body.Size.Width >
-                    bodyRect.Size.Height * body.Size.Width
-                )
-                {
-                    bodyRect = body;
-                }
-            } */
             bodyRect = bodies[0];
+            
             // Track the movement of the body
-            if (mLastBodyRect != null)
+            if (_currentBodyRect != null)
             {
                 // Detect the direction of the body movement
                 float bodyX = bodyRect.Location.X; // + bodyRect.Size.Width;
@@ -110,12 +95,7 @@ public class BodyDetector : MonoBehaviour
                     mMovementDirection = 0;
                 }
             }
-            //Debug.Log("Location: "+bodyRect.Location);
-            //Debug.Log("Size: "+bodyRect.Size);
-
-            // Save the current body position and direction for comparison in the next frame
-            mLastBodyRect = bodyRect;
-            mLastBodyX = mLastBodyRect.Location.X + (mLastBodyRect.Size.Width / 2);
+            _currentBodyRect = bodyRect;
         }
 
         if (_detectionWindow.Count >= detectionWindowSize)
@@ -134,9 +114,9 @@ public class BodyDetector : MonoBehaviour
 
     private void Display(Mat frame)
     {
-        if (mLastBodyRect != null)
+        if (_currentBodyRect != null)
         {
-            frame.Rectangle(mLastBodyRect, new Scalar(250, 0, 0), 2);
+            frame.Rectangle(_currentBodyRect, new Scalar(250, 0, 0), 2);
         }
 
         OpenCvSharp.Unity.MatToTexture(frame, _currentTexture);
