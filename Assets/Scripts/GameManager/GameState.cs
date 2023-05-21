@@ -34,11 +34,6 @@ public class GameState : AState
 
     public Image inventoryIcon;
 
-    public GameObject gameOverPopup;
-    public Button premiumForLifeButton;
-    public GameObject adsForLifeButton;
-    public Text premiumCurrencyOwned;
-
     [Header("Prefabs")]
     public GameObject PowerupIconPrefab;
 
@@ -113,7 +108,6 @@ public class GameState : AState
         pauseMenu.gameObject.SetActive(false);
         wholeUI.gameObject.SetActive(true);
         pauseButton.gameObject.SetActive(!trackManager.isTutorial);
-        gameOverPopup.SetActive(false);
 
         sideSlideTuto.SetActive(false);
         upSlideTuto.SetActive(false);
@@ -177,8 +171,6 @@ public class GameState : AState
     {
         if (m_Finished)
         {
-            adsForLifeButton.SetActive(false); // TODO: remove button completely
-
             return;
         }
 
@@ -360,10 +352,7 @@ public class GameState : AState
         yield return new WaitForSeconds(2.0f);
         if (currentModifier.OnRunEnd(this))
         {
-            if (trackManager.isRerun)
-                manager.SwitchState("GameOver");
-            else
-                OpenGameOverPopup();
+            manager.SwitchState("GameOver");
         }
 	}
 
@@ -378,17 +367,6 @@ public class GameState : AState
         trackManager.characterController.powerupSource.Stop();
 
         m_PowerupIcons.Clear();
-    }
-
-    public void OpenGameOverPopup()
-    {
-        premiumForLifeButton.interactable = PlayerData.instance.premium >= 3;
-
-        premiumCurrencyOwned.text = PlayerData.instance.premium.ToString();
-
-        ClearPowerup();
-
-        gameOverPopup.SetActive(true);
     }
 
     public void GameOver()
