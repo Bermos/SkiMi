@@ -12,7 +12,7 @@ public class LoadoutState : AState
 	public MeshFilter skyMeshFilter;
     public MeshFilter UIGroundFilter;
     public Text startInfo;
-    public Text startInfoPercent;
+    public Scrollbar startInfoBar;
 
 
 	protected Modifier m_CurrentModifier = new Modifier();
@@ -34,7 +34,7 @@ public class LoadoutState : AState
 	    skyMeshFilter.gameObject.SetActive(state);
 	    UIGroundFilter.gameObject.SetActive(state);
 	    startInfo.gameObject.SetActive(state);
-	    startInfoPercent.gameObject.SetActive(state);
+	    startInfoBar.gameObject.SetActive(state);
     }
 
     public override void Exit(AState to)
@@ -59,7 +59,9 @@ public class LoadoutState : AState
 
     public override void Tick()
     {
-	    startInfoPercent.text = (BodyDetector.GetDetectionPercent() / 0.8).ToString("0.00");
+	    startInfoBar.size = BodyDetector.GetDetectionPercent() / 0.8f;
+	    startInfoBar.enabled = startInfoBar.size < 0.01f;
+	    
 		if (BodyDetector.GetDetectionOverThreshold())
 		{
 			StartGame();
