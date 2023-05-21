@@ -9,32 +9,31 @@ public class GameOverState : AState
 {
     public TrackManager trackManager;
     public Canvas canvas;
-    public MissionUI missionPopup;
 
 	public Leaderboard miniLeaderboard;
 	public Leaderboard fullLeaderboard;
-
-    public GameObject addButton;
+	
+	public Scrollbar returnInfoBar;
     
+    public float timeToAutoRestart = 7.5f;
     private float _timeToAutoRestart;
+
+    private readonly List<string> _skiers = new() { "Didier", "Pirmin", "Beat", "Peter", "Carlo", "Vreni", "Erika", "Maria", "Lara", "Michaela" };
 
     public override void Enter(AState from)
     {
         canvas.gameObject.SetActive(true);
 
-		miniLeaderboard.playerEntry.inputName.text = PlayerData.instance.previousName;
+        var skierName = _skiers[Random.Range(0, _skiers.Count)];
+        miniLeaderboard.playerEntry.inputName.text = skierName;
 		
 		miniLeaderboard.playerEntry.score.text = trackManager.score.ToString();
 		miniLeaderboard.Populate();
 
-        if (PlayerData.instance.AnyMissionComplete())
-            StartCoroutine(missionPopup.Open());
-        else
-            missionPopup.gameObject.SetActive(false);
-
 		CreditCoins();
 
-		_timeToAutoRestart = 7.5f;
+		returnInfoBar.size = 0.0f;
+		_timeToAutoRestart = timeToAutoRestart;
     }
 
 	public override void Exit(AState to)
@@ -51,7 +50,9 @@ public class GameOverState : AState
     public override void Tick()
     {
 	    _timeToAutoRestart -= Time.deltaTime;
-	    Debug.Log(_timeToAutoRestart);
+	    
+	    returnInfoBar.size = 1.0f - (_timeToAutoRestart / timeToAutoRestart);
+	    
         if (_timeToAutoRestart <= 0.0f)
 		{
 			GoToLoadout();
@@ -68,22 +69,11 @@ public class GameOverState : AState
 		fullLeaderboard.Open();
     }
 
-	public void GoToStore()
-    {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("shop", UnityEngine.SceneManagement.LoadSceneMode.Additive);
-    }
-
 
     public void GoToLoadout()
     {
         trackManager.isRerun = false;
 		manager.SwitchState("Loadout");
-    }
-
-    public void RunAgain()
-    {
-        trackManager.isRerun = false;
-        manager.SwitchState("Game");
     }
 
     protected void CreditCoins()
@@ -93,14 +83,6 @@ public class GameOverState : AState
 
 	protected void FinishRun()
     {
-		if(miniLeaderboard.playerEntry.inputName.text == "")
-		{
-			miniLeaderboard.playerEntry.inputName.text = "Trash Cat";
-		}
-		else
-		{
-			PlayerData.instance.previousName = miniLeaderboard.playerEntry.inputName.text;
-		}
 
         PlayerData.instance.InsertScore(trackManager.score, miniLeaderboard.playerEntry.inputName.text );
 
