@@ -10744,7 +10744,7 @@ GameObject:
   - component: {fileID: 1152828396}
   - component: {fileID: 1152828395}
   m_Layer: 0
-  m_Name: Plane
+  m_Name: WebCameraPlane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11424,7 +11424,6 @@ MonoBehaviour:
   wholeUI: {fileID: 1005048469}
   pauseButton: {fileID: 878427078}
   inventoryIcon: {fileID: 1312192090}
-  adsForLifeButton: {fileID: 0}
   PowerupIconPrefab: {fileID: 102596, guid: 94cb557246c11d14388842cc08be79a8, type: 3}
   tutorialValidatedObstacles: {fileID: 821251250}
   sideSlideTuto: {fileID: 1094069291}
