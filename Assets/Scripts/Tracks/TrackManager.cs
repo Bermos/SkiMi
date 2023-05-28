@@ -195,7 +195,7 @@ public class TrackManager : MonoBehaviour
 
             //Addressables 1.0.1-preview
             // Spawn the player
-            var op = Addressables.InstantiateAsync(PlayerData.instance.characters[PlayerData.instance.usedCharacter],
+            var op = Addressables.InstantiateAsync("Skiier",
                 Vector3.zero,
                 Quaternion.identity);
             yield return op;
@@ -221,7 +221,7 @@ public class TrackManager : MonoBehaviour
             if (m_IsTutorial)
                 m_CurrentThemeData = tutorialThemeData;
             else
-                m_CurrentThemeData = ThemeDatabase.GetThemeData(PlayerData.instance.themes[PlayerData.instance.usedTheme]);
+                m_CurrentThemeData = ThemeDatabase.GetThemeData("SnowMountain");// #PlayerData.instance.themes[PlayerData.instance.usedTheme]);
 
             m_CurrentZone = 0;
             m_CurrentZoneDistance = 0;
@@ -239,8 +239,6 @@ public class TrackManager : MonoBehaviour
             m_ScoreAccum = 0;
 
             m_SafeSegementLeft = m_IsTutorial ? 0 : k_StartingSafeSegments;
-
-            Coin.coinPool = new Pooler(currentTheme.collectiblePrefab, k_StartingCoinPoolSize);
 
             PlayerData.instance.StartRunMissions(this);
 
@@ -463,10 +461,6 @@ public class TrackManager : MonoBehaviour
             {
                 PlayerData.instance.rank += 1;
                 PlayerData.instance.Save();
-#if UNITY_ANALYTICS
-//"level" in our game are milestone the player have to reach : one every 300m
-            AnalyticsEvent.LevelUp(PlayerData.instance.rank);
-#endif
             }
 
             PlayerData.instance.UpdateMissions(this);
@@ -612,7 +606,7 @@ public class TrackManager : MonoBehaviour
 
                 if (laneValid)
                 {
-                    pos = pos + ((currentLane - 1) * laneOffset * (rot * Vector3.right));
+                    pos += ((currentLane - 1) * laneOffset * (rot * Vector3.right));
 
 
                     GameObject toUse = null;
@@ -637,26 +631,6 @@ public class TrackManager : MonoBehaviour
                             toUse = op.Result as GameObject;
                             toUse.transform.SetParent(segment.transform, true);
                         }
-                    }
-                    else if (Random.value < premiumChance)
-                    {
-                        m_TimeSinceLastPremium = 0.0f;
-                        premiumChance = 0.0f;
-
-                        AsyncOperationHandle op = Addressables.InstantiateAsync(currentTheme.premiumCollectible.name, pos, rot);
-                        yield return op;
-                        if (op.Result == null || !(op.Result is GameObject))
-                        {
-                            Debug.LogWarning(string.Format("Unable to load collectable {0}.", currentTheme.premiumCollectible.name));
-                            yield break;
-                        }
-                        toUse = op.Result as GameObject;
-                        toUse.transform.SetParent(segment.transform, true);
-                    }
-                    else
-                    {
-                        toUse = Coin.coinPool.Get(pos, rot);
-                        toUse.transform.SetParent(segment.collectibleTransform, true);
                     }
 
                     if (toUse != null)

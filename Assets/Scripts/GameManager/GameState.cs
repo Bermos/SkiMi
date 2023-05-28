@@ -5,13 +5,6 @@ using System.Collections.Generic;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
-#if UNITY_ADS
-using UnityEngine.Advertisements;
-#endif
-#if UNITY_ANALYTICS
-using UnityEngine.Analytics;
-#endif
-
 /// <summary>
 /// Pushed on top of the GameManager during gameplay. Takes care of initializing all the UI and start the TrackManager
 /// Also will take care of cleaning when leaving that state.
@@ -40,11 +33,6 @@ public class GameState : AState
 	public Button pauseButton;
 
     public Image inventoryIcon;
-
-    public GameObject gameOverPopup;
-    public Button premiumForLifeButton;
-    public GameObject adsForLifeButton;
-    public Text premiumCurrencyOwned;
 
     [Header("Prefabs")]
     public GameObject PowerupIconPrefab;
@@ -120,7 +108,6 @@ public class GameState : AState
         pauseMenu.gameObject.SetActive(false);
         wholeUI.gameObject.SetActive(true);
         pauseButton.gameObject.SetActive(!trackManager.isTutorial);
-        gameOverPopup.SetActive(false);
 
         sideSlideTuto.SetActive(false);
         upSlideTuto.SetActive(false);
@@ -184,26 +171,6 @@ public class GameState : AState
     {
         if (m_Finished)
         {
-            //if we are finished, we check if advertisement is ready, allow to disable the button until it is ready
-#if UNITY_ADS
-            if (!trackManager.isTutorial && !m_AdsInitialised && Advertisement.IsReady(adsPlacementId))
-            {
-                adsForLifeButton.SetActive(true);
-                m_AdsInitialised = true;
-#if UNITY_ANALYTICS
-                AnalyticsEvent.AdOffer(adsRewarded, adsNetwork, adsPlacementId, new Dictionary<string, object>
-            {
-                { "level_index", PlayerData.instance.rank },
-                { "distance", TrackManager.instance == null ? 0 : TrackManager.instance.worldDistance },
-            });
-#endif
-            }
-            else if(trackManager.isTutorial || !m_AdsInitialised)
-                adsForLifeButton.SetActive(false);
-#else
-            adsForLifeButton.SetActive(false); //Ads is disabled
-#endif
-
             return;
         }
 
@@ -385,10 +352,7 @@ public class GameState : AState
         yield return new WaitForSeconds(2.0f);
         if (currentModifier.OnRunEnd(this))
         {
-            if (trackManager.isRerun)
-                manager.SwitchState("GameOver");
-            else
-                OpenGameOverPopup();
+            manager.SwitchState("GameOver");
         }
 	}
 
@@ -403,17 +367,6 @@ public class GameState : AState
         trackManager.characterController.powerupSource.Stop();
 
         m_PowerupIcons.Clear();
-    }
-
-    public void OpenGameOverPopup()
-    {
-        premiumForLifeButton.interactable = PlayerData.instance.premium >= 3;
-
-        premiumCurrencyOwned.text = PlayerData.instance.premium.ToString();
-
-        ClearPowerup();
-
-        gameOverPopup.SetActive(true);
     }
 
     public void GameOver()
@@ -454,62 +407,8 @@ public class GameState : AState
 
         m_GameoverSelectionDone = true;
 
-#if UNITY_ADS
-        if (Advertisement.IsReady(adsPlacementId))
-        {
-#if UNITY_ANALYTICS
-            AnalyticsEvent.AdStart(adsRewarded, adsNetwork, adsPlacementId, new Dictionary<string, object>
-            {
-                { "level_index", PlayerData.instance.rank },
-                { "distance", TrackManager.instance == null ? 0 : TrackManager.instance.worldDistance },
-            });
-#endif
-            var options = new ShowOptions { resultCallback = HandleShowResult };
-            Advertisement.Show(adsPlacementId, options);
-        }
-        else
-        {
-#if UNITY_ANALYTICS
-            AnalyticsEvent.AdSkip(adsRewarded, adsNetwork, adsPlacementId, new Dictionary<string, object> {
-                { "error", Advertisement.GetPlacementState(adsPlacementId).ToString() }
-            });
-#endif
-        }
-#else
 		GameOver();
-#endif
     }
-
-    //=== AD
-#if UNITY_ADS
-
-    private void HandleShowResult(ShowResult result)
-    {
-        switch (result)
-        {
-            case ShowResult.Finished:
-#if UNITY_ANALYTICS
-                AnalyticsEvent.AdComplete(adsRewarded, adsNetwork, adsPlacementId);
-#endif
-                SecondWind();
-                break;
-            case ShowResult.Skipped:
-                Debug.Log("The ad was skipped before reaching the end.");
-#if UNITY_ANALYTICS
-                AnalyticsEvent.AdSkip(adsRewarded, adsNetwork, adsPlacementId);
-#endif
-                break;
-            case ShowResult.Failed:
-                Debug.LogError("The ad failed to be shown.");
-#if UNITY_ANALYTICS
-                AnalyticsEvent.AdSkip(adsRewarded, adsNetwork, adsPlacementId, new Dictionary<string, object> {
-                    { "error", "failed" }
-                });
-#endif
-                break;
-        }
-    }
-#endif
 
 
     void TutorialCheckObstacleClear()

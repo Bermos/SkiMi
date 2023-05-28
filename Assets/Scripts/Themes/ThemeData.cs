@@ -23,8 +23,6 @@ public class ThemeData : ScriptableObject
 
 	[Header("Objects")]
 	public ThemeZone[] zones;
-	public GameObject collectiblePrefab;
-    public GameObject premiumCollectible;
 
     [Header("Decoration")]
     public GameObject[] cloudPrefabs;

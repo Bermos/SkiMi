@@ -16,19 +16,7 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: 34963f7c1bf93e54f9196484126a6d7f
-  m_SerializeEntries:
-  - m_GUID: 1225524528f67794ead226c3401f6bd6
-    m_Address: DefaultCloud01
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 480053abe3ba0aa4883a1b63c0deee9d
-    m_Address: DefaultCloud03
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: e4217d014d522f94bb0a059a38e2cb14
-    m_Address: DefaultCloud02
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+  m_SerializeEntries: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 735e874f947d0e143a6b4e83f8a7283a, type: 2}
   m_SchemaSet:

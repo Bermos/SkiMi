@@ -1,9 +1,6 @@
 ﻿using UnityEngine;
 using System.IO;
 using System.Collections.Generic;
-#if UNITY_ANALYTICS
-using UnityEngine.Analytics;
-#endif
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -45,7 +42,7 @@ public class PlayerData
     public List<HighscoreEntry> highscores = new List<HighscoreEntry>();
     public List<MissionBase> missions = new List<MissionBase>();
 
-	public string previousName = "Trash Cat";
+	public string previousName = "Skiier";
 
     public bool licenceAccepted;
     public bool tutorialDone;
@@ -153,18 +150,6 @@ public class PlayerData
     {        
         premium += mission.reward;
         
-#if UNITY_ANALYTICS // Using Analytics Standard Events v0.3.0
-        AnalyticsEvent.ItemAcquired(
-            AcquisitionType.Premium, // Currency type
-            "mission",               // Context
-            mission.reward,          // Amount
-            "anchovies",             // Item ID
-            premium,                 // Item balance
-            "consumable",            // Item type
-            rank.ToString()          // Level
-        );
-#endif
-        
         missions.Remove(mission);
 
         CheckMissionsCount();
@@ -244,8 +229,8 @@ public class PlayerData
         m_Instance.coins = 0;
         m_Instance.premium = 0;
 
-		m_Instance.characters.Add("Trash Cat");
-		m_Instance.themes.Add("Day");
+		m_Instance.characters.Add("Skiier");
+		m_Instance.themes.Add("SnowMountain");
 
         m_Instance.ftueLevel = 0;
         m_Instance.rank = 0;
