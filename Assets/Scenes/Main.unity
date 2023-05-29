@@ -3634,7 +3634,7 @@ MonoBehaviour:
   canvas: {fileID: 455205751}
   miniLeaderboard: {fileID: 859562874}
   fullLeaderboard: {fileID: 1815696064}
-  returnInfoBar: {fileID: 1099238040}
+  returnInfoBar: {fileID: 0}
   timeToAutoRestart: 7.5
 --- !u!114 &455205753
 MonoBehaviour:
@@ -18021,6 +18021,7 @@ MonoBehaviour:
   speedStep: 4
   laneOffset: 1.5
   invincible: 0
+  safeSegmentInterval: 1
   consumableDatabase: {fileID: 11400000, guid: 5d316f81231c9964dadda0b50ca7ae6b, type: 2}
   skyMeshFilter: {fileID: 201362454}
   parallaxRoot: {fileID: 1617204952}
