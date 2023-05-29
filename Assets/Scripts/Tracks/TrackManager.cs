@@ -46,6 +46,7 @@ public class TrackManager : MonoBehaviour
     public float laneOffset = 1.0f;
 
     public bool invincible = false;
+    public int safeSegmentInterval = 1;
 
     [Header("Objects")]
     public ConsumableDatabase consumableDatabase;
@@ -534,6 +535,7 @@ public class TrackManager : MonoBehaviour
         if (m_SafeSegementLeft <= 0)
         {
             SpawnObstacle(newSegment);
+            m_SafeSegementLeft += safeSegmentInterval;
         }
         else
             m_SafeSegementLeft -= 1;
