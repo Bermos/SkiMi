@@ -19,8 +19,6 @@ public class GameState : AState
 	public AudioClip gameTheme;
 
     [Header("UI")]
-    public Text coinText;
-    public Text premiumText;
     public Text scoreText;
 	public Text distanceText;
     public Text multiplierText;
@@ -30,9 +28,6 @@ public class GameState : AState
 
 	public RectTransform pauseMenu;
 	public RectTransform wholeUI;
-	public Button pauseButton;
-
-    public Image inventoryIcon;
 
     [Header("Prefabs")]
     public GameObject PowerupIconPrefab;
@@ -107,7 +102,6 @@ public class GameState : AState
         canvas.gameObject.SetActive(true);
         pauseMenu.gameObject.SetActive(false);
         wholeUI.gameObject.SetActive(true);
-        pauseButton.gameObject.SetActive(!trackManager.isTutorial);
 
         sideSlideTuto.SetActive(false);
         upSlideTuto.SetActive(false);
@@ -182,7 +176,6 @@ public class GameState : AState
 
             if (chrCtrl.currentLife <= 0)
             {
-                pauseButton.gameObject.SetActive(false);
                 chrCtrl.CleanConsumable();
                 chrCtrl.character.animator.SetBool(s_DeadHash, true);
                 chrCtrl.characterCollider.koParticle.gameObject.SetActive(true);
@@ -265,7 +258,6 @@ public class GameState : AState
 		AudioListener.pause = true;
 		Time.timeScale = 0;
 
-		pauseButton.gameObject.SetActive(false);
         pauseMenu.gameObject.SetActive (displayMenu);
 		wholeUI.gameObject.SetActive(false);
 		m_WasMoving = trackManager.isMoving;
@@ -275,7 +267,6 @@ public class GameState : AState
 	public void Resume()
 	{
 		Time.timeScale = 1.0f;
-		pauseButton.gameObject.SetActive(true);
 		pauseMenu.gameObject.SetActive (false);
 		wholeUI.gameObject.SetActive(true);
 		if (m_WasMoving)
@@ -299,10 +290,7 @@ public class GameState : AState
 
     protected void UpdateUI()
     {
-        coinText.text = trackManager.characterController.coins.ToString();
-        premiumText.text = trackManager.characterController.premium.ToString();
-
-		for (int i = 0; i < 3; ++i)
+        for (int i = 0; i < 3; ++i)
 		{
 
 			if(trackManager.characterController.currentLife > i)
@@ -330,15 +318,6 @@ public class GameState : AState
 		{
 			m_CountdownRectTransform.localScale = Vector3.zero;
 		}
-
-        // Consumable
-        if (trackManager.characterController.inventory != null)
-        {
-            inventoryIcon.transform.parent.gameObject.SetActive(true);
-            inventoryIcon.sprite = trackManager.characterController.inventory.icon;
-        }
-        else
-            inventoryIcon.transform.parent.gameObject.SetActive(false);
     }
 
 	IEnumerator WaitForGameOver()
