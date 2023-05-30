@@ -62,7 +62,7 @@ MonoBehaviour:
     m_Address: Assets/Models/SnowMountain/Road02.fbx
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 49cb088ea67b07982b9fa511e626a1cb
+  - m_GUID: 32ef71e31fe554341989fdfb1c16c496
     m_Address: Assets/Bundles/Themes/SnowMountain/Forrest/Forrest01.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
