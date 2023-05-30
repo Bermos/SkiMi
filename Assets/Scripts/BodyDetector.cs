@@ -53,8 +53,6 @@ public class BodyDetector : MonoBehaviour
         var frame = OpenCvSharp.Unity.TextureToMat(_webCamTexture);
         _currentTexture = new Texture2D(frame.Width, frame.Height, TextureFormat.RGBA32, false);
         _currentBodyRect = new Rect();
-
-        transform.position = new Vector3(0.0096f, 1.4253f, 2.5982f);
     }
 
     private static void ExitWithError(string errorMessage)

@@ -297,6 +297,8 @@ public class TrackManager : MonoBehaviour
             PlayerData.instance.Add(characterController.inventory.GetConsumableType());
             characterController.inventory = null;
         }
+        
+        bodyDetector.transform.position = new Vector3(0.0096f, 1.4253f, 2.5982f);
     }
 
 
