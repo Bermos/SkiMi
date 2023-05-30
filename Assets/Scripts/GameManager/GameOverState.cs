@@ -19,13 +19,14 @@ public class GameOverState : AState
     private float _timeToAutoRestart;
 
     private readonly List<string> _skiers = new() { "Didier", "Pirmin", "Beat", "Peter", "Carlo", "Vreni", "Erika", "Maria", "Lara", "Michaela" };
+    private string _skierName;
 
     public override void Enter(AState from)
     {
         canvas.gameObject.SetActive(true);
 
-        var skierName = _skiers[Random.Range(0, _skiers.Count)];
-        miniLeaderboard.playerEntry.inputName.text = $"{skierName} (YOU)";
+        _skierName = _skiers[Random.Range(0, _skiers.Count)];
+        miniLeaderboard.playerEntry.inputName.text = $"{_skierName} (YOU)";
 		
 		miniLeaderboard.playerEntry.score.text = trackManager.score.ToString();
 		miniLeaderboard.Populate();
@@ -84,7 +85,7 @@ public class GameOverState : AState
 	protected void FinishRun()
     {
 
-        PlayerData.instance.InsertScore(trackManager.score, miniLeaderboard.playerEntry.inputName.text );
+        PlayerData.instance.InsertScore(trackManager.score, _skierName );
 
         CharacterCollider.DeathEvent de = trackManager.characterController.characterCollider.deathData;
 

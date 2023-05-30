@@ -708,7 +708,7 @@ MonoBehaviour:
   m_LineType: 0
   m_HideMobileInput: 0
   m_CharacterValidation: 0
-  m_CharacterLimit: 12
+  m_CharacterLimit: 14
   m_OnSubmit:
     m_PersistentCalls:
       m_Calls: []
@@ -7293,7 +7293,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: ab2cfde409d710b47b0b502877abb479, type: 3}
-    m_FontSize: 50
+    m_FontSize: 45
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 1
@@ -7333,7 +7333,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &869760745
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11013,7 +11013,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1245236421
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11115,8 +11115,6 @@ MonoBehaviour:
   canvas: {fileID: 1245236424}
   trackManager: {fileID: 1958487560}
   gameTheme: {fileID: 8300000, guid: b341b9410b3c5274e8b15199f3b95fb5, type: 3}
-  coinText: {fileID: 0}
-  premiumText: {fileID: 0}
   scoreText: {fileID: 780872363}
   distanceText: {fileID: 23242379}
   multiplierText: {fileID: 1637735537}
@@ -11125,8 +11123,6 @@ MonoBehaviour:
   lifeRectTransform: {fileID: 2036954777}
   pauseMenu: {fileID: 1659149218}
   wholeUI: {fileID: 1005048469}
-  pauseButton: {fileID: 0}
-  inventoryIcon: {fileID: 0}
   PowerupIconPrefab: {fileID: 102596, guid: 94cb557246c11d14388842cc08be79a8, type: 3}
   tutorialValidatedObstacles: {fileID: 821251250}
   sideSlideTuto: {fileID: 1094069291}
@@ -13436,7 +13432,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
