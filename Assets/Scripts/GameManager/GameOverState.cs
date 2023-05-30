@@ -25,7 +25,7 @@ public class GameOverState : AState
         canvas.gameObject.SetActive(true);
 
         var skierName = _skiers[Random.Range(0, _skiers.Count)];
-        miniLeaderboard.playerEntry.inputName.text = skierName;
+        miniLeaderboard.playerEntry.inputName.text = $"{skierName} (YOU)";
 		
 		miniLeaderboard.playerEntry.score.text = trackManager.score.ToString();
 		miniLeaderboard.Populate();
