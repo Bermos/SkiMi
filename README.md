@@ -8,6 +8,7 @@ Prefered Code Editor for Debugging and writing C# scripts: JetBrains Rider
 
 **Connect Rider to Unity**: https://www.jetbrains.com/help/rider/Unity.html#getting-started
 
+This project requires a x86_64 processor to work correctly. 
 
 ### Build
 
